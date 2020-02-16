@@ -7,7 +7,7 @@
 ## **User Stories**
 
 + [x] User can enter one valid roman numeral in an input field.
-+ [] User can enter one decimal numeral in an input field.
++ [x] User can enter one valid decimal number in an input field.
 + [] User could see the results in a single output field containing the decimal (base 10) equivalent to the roman numeral that was entered after finishing to type.
 + [] User could see the results in a single output field containing the roman numeral equivalent to the decimal number that was entered after finishing to type.
 + [] User could see the conversion to be made automatically while I type
