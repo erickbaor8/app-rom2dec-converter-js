@@ -36,3 +36,10 @@ input[type="text"] {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: 600;
 }
+
+.result {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    font-weight: 700;
+}
