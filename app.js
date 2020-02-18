@@ -7,7 +7,7 @@ input.addEventListener('keyup', event => {
     event.preventDefault();
 
     if (event.code === "Enter") {
-      const value = input.value.trim();
+      let value = input.value.trim();
 
       if (isDecimal(value)) {
         renderResult(decimalToRoman(value));
@@ -18,6 +18,74 @@ input.addEventListener('keyup', event => {
       }
     }
 });
+
+function decimalToRoman(decimal) {
+    let lenght = decimal.length - 1;
+    let roman = '';
+    let number = parseInt(decimal);
+
+    while(number > 0) {
+        let value = parseInt(number / Math.pow(10, lenght));
+
+        if (lenght === 3) {
+            roman += concatRomans('M', value);
+        } 
+        
+        if (lenght === 2) {
+            if (value !== 0) {
+                if (value < 4) roman += concatRomans('C', value);
+                if (value === 4) roman += concatRomans('CD', 1);
+                if (value === 5) roman += concatRomans('D', 1);
+                if (value > 5 && value < 9) {
+                    roman += concatRomans('D', 1);
+                    roman += concatRomans('C', value - 5);
+                }
+                if (value === 9) roman += concatRomans('CM', 1);
+            }
+        } 
+        
+        if (lenght === 1) {
+            if (value !== 0) {
+                if (value < 4) roman += concatRomans('X', value);
+                if (value === 4) roman += concatRomans('XL', 1);
+                if (value === 5) roman += concatRomans('L', 1);
+                if (value > 5 && value < 9) {
+                    roman += concatRomans('L', 1);
+                    roman += concatRomans('X', value - 5);
+                }
+                if (value === 9) roman += concatRomans('XC', 1);
+            }
+        } 
+        
+        if (lenght === 0) {
+            if (value !== 0) {
+                if (value < 4) roman += concatRomans('I', value);
+                if (value === 4) roman += concatRomans('IV', 1);
+                if (value === 5) roman += concatRomans('V', 1);
+                if (value > 5 && value < 9) {
+                    roman += concatRomans('V', 1);
+                    roman += concatRomans('I', value - 5);
+                }
+                if (value === 9) roman += concatRomans('IX', 1);
+            }
+        }
+
+        number %= Math.pow(10, lenght);
+        lenght--;
+    }
+
+    return roman;
+}
+
+function concatRomans(str, repetitions) {
+    let roman = '';
+
+    for (let i=0; i<repetitions; i++) {
+        roman += str;
+    }
+
+    return roman;
+}
 
 function romanToDecimal(roman) {
     roman = roman.split('');
