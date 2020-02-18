@@ -8,10 +8,11 @@ input.addEventListener('keyup', event => {
 
     if (event.code === "Enter") {
       if (isDecimal(input.value.trim())) {
-        alert("Valid decimal numeral!");
+        const value = input.value.trim();
+        renderResult(decimalToRoman(value));
       } else if (isRoman(input.value.trim().toUpperCase())) {
-        const value = romanToDecimal(input.value.trim().toUpperCase());
-        renderResult(value);
+        const value = input.value.trim().toUpperCase();
+        renderResult(romanToDecimal(value));
       } else {
         alert("Invalid number!");
       }
@@ -26,28 +27,22 @@ function romanToDecimal(roman) {
     let j = 1;
 
     while (size > 0) {
-        if (roman[i] === 'M') {
-            decimal += 1000;
-            i++;
-            j++;
-            size--;
-        }
+        if (roman[i] === 'M' || roman[i] === 'D' || roman[i] === 'L' || roman[i] === 'V') {
+            if (roman[i] === 'M') decimal += 1000;
+            if (roman[i] === 'D') decimal += 500;
+            if (roman[i] === 'L') decimal += 50;
+            if (roman[i] === 'V') decimal += 5;
 
-        if (roman[i] === 'D') {
-            decimal += 500;
             i++;
             j++;
             size--;
         }
 
         if (roman[i] === 'C') {
-            if (roman[j] === 'D') {
-                decimal += 400;
-                i += 2;
-                j += 2;
-                size -= 2;
-            } else if (roman[j] === 'M') {
-                decimal += 900;
+            if (roman[j] === 'D' || roman[j] === 'M') {
+                if (roman[j] === 'D') decimal += 400;
+                if (roman[j] === 'M') decimal += 900;
+
                 i += 2;
                 j += 2;
                 size -= 2;
@@ -59,21 +54,11 @@ function romanToDecimal(roman) {
             }
         }
 
-        if (roman[i] === 'L') {
-            decimal += 50;
-            i++;
-            j++;
-            size--;
-        }
-
         if (roman[i] === 'X') {
-            if (roman[j] === 'L') {
-                decimal += 40;
-                i += 2;
-                j += 2;
-                size -= 2;
-            } else if (roman[j] === 'C') {
-                decimal += 90;
+            if (roman[j] === 'L' || roman[j] === 'C') {
+                if (roman[j] === 'L') decimal += 40;
+                if (roman[j] === 'C') decimal += 90; 
+
                 i += 2;
                 j += 2;
                 size -= 2;
@@ -85,21 +70,11 @@ function romanToDecimal(roman) {
             }  
         }
 
-        if (roman[i] === 'V') {
-            decimal += 5;
-            i++;
-            j++;
-            size--;
-        }
-
         if (roman[i] === 'I') {
-            if (roman[j] === 'V') {
-                decimal += 4;
-                i += 2;
-                j += 2;
-                size -= 2;
-            } else if (roman[j] === 'X') {
-                decimal += 9;
+            if (roman[j] === 'V' || roman[j] === 'X') {
+                if (roman[j] === 'V') decimal += 4;
+                if (roman[j] === 'X') decimal += 9;
+
                 i += 2;
                 j += 2;
                 size -= 2;
