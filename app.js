@@ -7,12 +7,12 @@ input.addEventListener('keyup', event => {
     event.preventDefault();
 
     if (event.code === "Enter") {
-      if (isDecimal(input.value.trim())) {
-        const value = input.value.trim();
+      const value = input.value.trim();
+
+      if (isDecimal(value)) {
         renderResult(decimalToRoman(value));
-      } else if (isRoman(input.value.trim().toUpperCase())) {
-        const value = input.value.trim().toUpperCase();
-        renderResult(romanToDecimal(value));
+      } else if (isRoman(value.toUpperCase())) {
+        renderResult(romanToDecimal(value.toUpperCase()));
       } else {
         alert("Invalid number!");
       }
