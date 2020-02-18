@@ -1,88 +1,88 @@
-let input = document.querySelector('input[type="text"]');
-let output = document.querySelector(".output");
+let boxInput = document.querySelector('input[type="text"]');
+let boxOutput = document.querySelector(".output");
 
-input.addEventListener("keyup", event => {
+boxInput.addEventListener("keyup", event => {
   event.preventDefault();
 
   if (event.code === "Enter") {
-    let value = input.value.trim();
+    let value = boxInput.value.trim();
 
     if (isDecimal(value)) {
       renderResult(decimalToRoman(value));
     } else if (isRoman(value.toUpperCase())) {
       renderResult(romanToDecimal(value.toUpperCase()));
     } else {
-      alert("Invalid number!");
+      renderResult("Invalid number!");
     }
   }
 });
 
 function decimalToRoman(decimal) {
-  let lenght = decimal.length - 1;
-  let roman = "";
-  let number = parseInt(decimal);
+  let numDigits = decimal.length - 1;
+  let romanNumeral = "";
+  let decimalNumber = parseInt(decimal);
 
-  while (number > 0) {
-    let value = parseInt(number / Math.pow(10, lenght));
+  while (decimalNumber > 0) {
+    let value = parseInt(decimalNumber / Math.pow(10, lenght));
 
-    if (lenght === 3) {
-      roman += concatRomans("M", value);
+    if (numDigits === 3) {
+        romanNumeral += concatRomans("M", value);
     }
 
-    if (lenght === 2) {
+    if (numDigits === 2) {
       if (value !== 0) {
-        if (value < 4) roman += concatRomans("C", value);
-        if (value === 4) roman += concatRomans("CD", 1);
-        if (value === 5) roman += concatRomans("D", 1);
+        if (value < 4) romanNumeral += concatRomans("C", value);
+        if (value === 4) romanNumeral += concatRomans("CD", 1);
+        if (value === 5) romanNumeral += concatRomans("D", 1);
         if (value > 5 && value < 9) {
-          roman += concatRomans("D", 1);
-          roman += concatRomans("C", value - 5);
+          romanNumeral += concatRomans("D", 1);
+          romanNumeral += concatRomans("C", value - 5);
         }
-        if (value === 9) roman += concatRomans("CM", 1);
+        if (value === 9) romanNumeral += concatRomans("CM", 1);
       }
     }
 
-    if (lenght === 1) {
+    if (numDigits === 1) {
       if (value !== 0) {
-        if (value < 4) roman += concatRomans("X", value);
-        if (value === 4) roman += concatRomans("XL", 1);
-        if (value === 5) roman += concatRomans("L", 1);
+        if (value < 4) romanNumeral += concatRomans("X", value);
+        if (value === 4) romanNumeral += concatRomans("XL", 1);
+        if (value === 5) romanNumeral += concatRomans("L", 1);
         if (value > 5 && value < 9) {
-          roman += concatRomans("L", 1);
-          roman += concatRomans("X", value - 5);
+          romanNumeral += concatRomans("L", 1);
+          romanNumeral += concatRomans("X", value - 5);
         }
-        if (value === 9) roman += concatRomans("XC", 1);
+        if (value === 9) romanNumeral += concatRomans("XC", 1);
       }
     }
 
-    if (lenght === 0) {
+    if (numDigits === 0) {
       if (value !== 0) {
-        if (value < 4) roman += concatRomans("I", value);
-        if (value === 4) roman += concatRomans("IV", 1);
-        if (value === 5) roman += concatRomans("V", 1);
+        if (value < 4) romanNumeral += concatRomans("I", value);
+        if (value === 4) romanNumeral += concatRomans("IV", 1);
+        if (value === 5) romanNumeral += concatRomans("V", 1);
         if (value > 5 && value < 9) {
-          roman += concatRomans("V", 1);
-          roman += concatRomans("I", value - 5);
+          romanNumeral += concatRomans("V", 1);
+          romanNumeral += concatRomans("I", value - 5);
         }
-        if (value === 9) roman += concatRomans("IX", 1);
+        if (value === 9) romanNumeral += concatRomans("IX", 1);
       }
     }
 
-    number %= Math.pow(10, lenght);
-    lenght--;
+    decimalNumber %= Math.pow(10, numDigits);
+    numDigits--;
   }
 
-  return roman;
+  return romanNumeral;
 }
 
 function concatRomans(str, repetitions) {
-  let roman = "";
+  let romanNumeral = "";
 
   for (let i = 0; i < repetitions; i++) {
-    roman += str;
+    romanNumeral += str;
   }
 
-  return roman;
+  return romanNumeral;
 }
 
 function romanToDecimal(roman) {
@@ -162,10 +162,10 @@ function romanToDecimal(roman) {
 }
 
 function renderResult(result) {
-  let element = document.createElement("div");
-  element.className = "result";
-  element.innerHTML += `<span>${result}</span>`;
-  output.insertAdjacentElement("afterbegin", element);
+  let div = document.createElement("div");
+  div.className = "result";
+  div.innerHTML += `<span>${result}</span>`;
+  boxOutput.insertAdjacentElement("afterbegin", div);
 }
 
 function isRoman(roman) {
